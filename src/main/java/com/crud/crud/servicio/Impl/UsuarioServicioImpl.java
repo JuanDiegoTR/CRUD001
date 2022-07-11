@@ -71,11 +71,11 @@ public class UsuarioServicioImpl implements UsuarioServicio {
     @Override
     public ResponseEntity<Usuario> actualizarUsuario(Usuario usuario, Long id) {
         try {
-            var usuarioExistente = usuarioRepositorio.findById(id);
-            usuario.setNombre(usuario.getNombre());
-            usuario.setEdad(usuario.getEdad());
-            usuario.setCorreo(usuario.getCorreo());
-            usuarioRepositorio.save(usuario);
+            Usuario usuarioExistente = usuarioRepositorio.findById(id).get();
+            usuarioExistente.setNombre(usuario.getNombre());
+            usuarioExistente.setEdad(usuario.getEdad());
+            usuarioExistente.setCorreo(usuario.getCorreo());
+            usuarioRepositorio.save(usuarioExistente);
             return  new ResponseEntity<Usuario>(HttpStatus.OK);
         }catch (Exception exception){
             return new ResponseEntity<Usuario>(HttpStatus.NOT_FOUND);
